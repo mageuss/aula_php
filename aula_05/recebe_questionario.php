@@ -21,34 +21,34 @@ function funcao_maneira_para_validar_coisas($erro, $nome, $email, $sexo, $endere
     if (!is_numeric($matricula)) {
 
         $erro = "matricula_invalida";
-        return false;
+        return true;
     }
 
     if (!is_numeric($cep)) {
 
         $erro = "cep_invalido";
-        return false;
+        return true;
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
         $erro = "email_invalido";
-        return false;
+        return true;
 
     }
 
-    return true;
+    return false;
 
 }
 
 
 if (funcao_maneira_para_validar_coisas($erro, $nome, $email, $sexo, $endereco, $bairro, $cidade, $cep, $curso, $matricula)) {
 
-    header($header);
-
-} else {
-
     header($header . "?erro=" . $erro);
+    
+} else {
+    
+    header($header);
 
 }
 
