@@ -9,7 +9,7 @@ $numeros =
 echo "exercicio 1: " . "<br>".$numeros[2] . "<hr>";
 
 //2.	Crie um array com 10 números aleatórios entre 1 e 100 e exiba na tela apenas os números pares. Gabarito: ex4/Array.php
-echo "exercicio 2: </br>";
+echo "exercicio 2: </br";
 
 $numero_aleatorio = array();
 
@@ -82,6 +82,8 @@ echo "<hr>";
 // 5.	Crie um array multidimensional com as notas de 5 alunos em 4 disciplinas. Calcule a média de cada aluno e exiba na tela. Gabarito: ex4/Array.php
 
 // 6.	Crie um formulário de login que solicita um usuário e senha. Armazene o usuário em uma variável de sessão e redirecione para uma página de boas-vindas que exibe o nome do usuário. Ex01
+
+
 
 // 7.	Crie uma página que permita o usuário escolher o idioma da página. Utilize sessions para armazenar a escolha do usuário e ajustar o idioma das páginas subsequentes. Ex02
 
