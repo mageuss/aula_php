@@ -18,7 +18,6 @@ foreach ($alunos as $aluno) {
 }
 
 echo "<hr>";
-// 2. Crie um carrinho de compras simples que permita que o usuário adicione produtos em uma lista. Utilize sessions para armazenar a lista de produtos e exibi-la em uma página de carrinho.
 
 ?>
 
