@@ -24,4 +24,4 @@ $_SESSION['lista'][] = [
 
 header("location:exercicio_reforco.php")
 
-    ?>
+?>
