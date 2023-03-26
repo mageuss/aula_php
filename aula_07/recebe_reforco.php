@@ -22,8 +22,6 @@ $_SESSION['lista'][] = [
     $_SESSION['produto'] => $_SESSION['preco']
 ];
 
-// session_destroy();
-
 header("location:exercicio_reforco.php")
 
     ?>
