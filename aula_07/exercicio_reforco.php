@@ -1,6 +1,6 @@
 <?php
 
-//echo "hello world";
+//echo "hello world :D";
 
 $alunos = [
     ["nome" => "lucas", "matematica" => 10, "portugues" => 6, "biologia" => 8, "fisica" => 9],
