@@ -110,7 +110,7 @@ function validar_email($email)
     return "ok";
 }
 
-echo "validar nome: " . validar_nome("mageus") . "</br> <hr>";
+// echo "validar nome: " . validar_nome("mageus") . "</br> <hr>";
 
-echo "validar senha: " . validar_senha("mageus123") . "</br> <hr>";
+// echo "validar senha: " . validar_senha("mageus123") . "</br> <hr>";
 

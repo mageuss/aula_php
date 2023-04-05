@@ -34,7 +34,7 @@ $resultado = mysqli_query($con, $sqlDeTeste);
 
 $registros = mysqli_num_rows($resultado);
 
-echo "Registros: $registros";
+// echo "Registros: $registros";
 
 $logins = mysqli_fetch_array($resultado);
 
@@ -54,14 +54,13 @@ $logins = mysqli_fetch_array($resultado);
 //     echo  "<br/>" . $login;
 // }
 
-
 $resultado = mysqli_query($con, $sqlDeTeste);
 
 $rows = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
-echo "<pre>";
-var_dump($rows);
-echo "</pre>";
+// echo "<pre>";
+// var_dump($rows);
+// echo "</pre>";
 
 ?>
 
@@ -81,7 +80,6 @@ echo "</pre>";
         echo "<td>" . $row['idAluno'] . "</td>";
         echo '</tr>';
     }
-
 
     ?>
 
