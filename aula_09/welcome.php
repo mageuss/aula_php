@@ -23,4 +23,6 @@ if($_SESSION['token'] != $token)
     header("location:index.php?erro=INVASAO");
 }
 
+revalidarLogin();
+
 ?>

@@ -24,20 +24,20 @@ function validarLogin($login, $senha)
     global $user, $password, $database, $hostname;
 
     $sqlLogin =   " SELECT * " .
-              " FROM login l " .
-              " WHERE l.dslogin = '@nome' " .
-              " and l.dssenha = '@senha' ";
+        " FROM login l " .
+        " WHERE l.dslogin = '@nome' " .
+        " and l.dssenha = '@senha' ";
 
 
-    $sql = str_replace("@nome",$login,$sqlLogin);
-    $sql = str_replace("@senha",$senha,$sql);
+    $sql = str_replace("@nome", $login, $sqlLogin);
+    $sql = str_replace("@senha", $senha, $sql);
 
-    $con = mysqli_connect( $hostname, $user, $password ) or die('erro na conexão');
+    $con = mysqli_connect($hostname, $user, $password) or die('erro na conexão');
     if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
     # Seleciona o banco de dados 
     mysqli_select_db($con, $database) or die('erro na seleção do banco');
 
-    $resultado = mysqli_query($con , $sql);
+    $resultado = mysqli_query($con, $sql);
 
     $registros = mysqli_num_rows($resultado);
 
@@ -52,12 +52,12 @@ Fim da parte nova
 
 function caracterInvalido($valor)
 {
-    if (strstr($valor,"'")) return true;
-    if (strstr($valor,'"')) return true; 
-    if (strstr($valor,'<')) return true; 
-    if (strstr($valor,'>')) return true; 
-    if (strstr($valor,'--')) return true;
-    
+    if (strstr($valor, "'")) return true;
+    if (strstr($valor, '"')) return true;
+    if (strstr($valor, '<')) return true;
+    if (strstr($valor, '>')) return true;
+    if (strstr($valor, '--')) return true;
+
     return false;
 }
 
@@ -69,7 +69,7 @@ function validar_nome($nome)
     if (caracterInvalido($nome) == true) return "erro:INVALIDO001";
     if (empty($nome) == true) return "erro:EMBRANCO001";
     if (strlen($nome) > $tamanhoMaxUsuario) return "erro:TAMANHO001";
-    
+
     return "ok";
 }
 
@@ -81,7 +81,7 @@ function validar_senha($senha)
     if (caracterInvalido($senha) == true) return "erro:INVALIDO001";
     if (empty($senha) == true) return "erro:EMBRANCO001";
     if (strlen($senha) < $tamanhoMinSenha) return "erro:TAMANHO002";
-    
+
     return "ok";
 }
 
@@ -98,8 +98,28 @@ function validar_email($email)
 }
 
 
+function revalidarLogin()
+{
+    $token = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+    session_name($token);
+    session_start();
+
+    //session_destroy();
+
+    //var_dump($_SESSION);
+
+    if (!isset($_SESSION['login']) || !isset($_SESSION['senha']) || !isset($_SESSION['token'])) {
+        session_destroy();
+        header("location:index.php?erro=SEMLOGIN");
+    }
+
+    if ($_SESSION['token'] != $token) {
+        session_destroy();
+        header("location:index.php?erro=INVASAO");
+    }
+    echo "hello world";
+};
+
 //echo "Validar função: "  . validar_nome("bruno");
 //echo "Validar senha: " . validar_senha("1234567890");
 //echo "Validar email: " . validar_email("brunosal@danhagmail.com");
-
-?>
