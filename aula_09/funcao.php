@@ -32,10 +32,10 @@ function validarLogin($login, $senha)
     $sql = str_replace("@nome",$login,$sqlLogin);
     $sql = str_replace("@senha",$senha,$sql);
 
-    $con = mysqli_connect( $hostname, $user, $password ) or die('Erro na conexão');
+    $con = mysqli_connect( $hostname, $user, $password ) or die('erro na conexão');
     if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
     # Seleciona o banco de dados 
-    mysqli_select_db($con, $database) or die('Erro na seleção do banco');
+    mysqli_select_db($con, $database) or die('erro na seleção do banco');
 
     $resultado = mysqli_query($con , $sql);
 
@@ -66,9 +66,9 @@ function validar_nome($nome)
 {
     global $tamanhoMaxUsuario;
 
-    if (caracterInvalido($nome) == true) return "Erro: INVALIDO001";
-    if (empty($nome) == true) return "Erro: EMBRANCO001";
-    if (strlen($nome) > $tamanhoMaxUsuario) return "Erro: TAMANHO001";
+    if (caracterInvalido($nome) == true) return "erro:INVALIDO001";
+    if (empty($nome) == true) return "erro:EMBRANCO001";
+    if (strlen($nome) > $tamanhoMaxUsuario) return "erro:TAMANHO001";
     
     return "ok";
 }
@@ -78,9 +78,9 @@ function validar_senha($senha)
 {
     global $tamanhoMinSenha;
 
-    if (caracterInvalido($senha) == true) return "Erro: INVALIDO001";
-    if (empty($senha) == true) return "Erro: EMBRANCO001";
-    if (strlen($senha) < $tamanhoMinSenha) return "Erro: TAMANHO002";
+    if (caracterInvalido($senha) == true) return "erro:INVALIDO001";
+    if (empty($senha) == true) return "erro:EMBRANCO001";
+    if (strlen($senha) < $tamanhoMinSenha) return "erro:TAMANHO002";
     
     return "ok";
 }
@@ -89,11 +89,11 @@ function validar_email($email)
 {
     global $tamanhoMaxEmail;
 
-    if (caracterInvalido($email) == true) return "Erro: INVALIDO001";
-    if (empty($email) == true) return "Erro: EMBRANCO001";
-    if (strlen($email) > $tamanhoMaxEmail) return "Erro: TAMANHO003";
+    if (caracterInvalido($email) == true) return "erro:INVALIDO001";
+    if (empty($email) == true) return "erro:EMBRANCO001";
+    if (strlen($email) > $tamanhoMaxEmail) return "erro:TAMANHO003";
 
-    if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) return "Erro: INVALIDO002";
+    if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) return "erro:INVALIDO002";
     else return "ok";
 }
 
