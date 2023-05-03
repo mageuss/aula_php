@@ -18,7 +18,17 @@ revalidarLogin();
                 <td>nmaluno</td>
             </tr>
             <?php
-            
+            $registros = listarLogins();
+
+            foreach($registros as $linha)
+            {
+                echo '<tr>';
+                echo    '<td>'.$linha['dslogin'].'</td>';
+                echo    '<td>'.$linha['dssenha'].'</td>';
+                echo    '<td>'.$linha['idaluno'].'</td>';
+                echo    '<td>'.$linha['nmaluno'].'</td>';
+                echo '</tr>';
+            }
 
                 /*
             <tr>
