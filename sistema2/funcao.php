@@ -254,12 +254,11 @@ function incluirAluno($nmaluno)
 /*grupo de funções de login*/
 function listarLogins()
 {
-    $sqlListagem = '' .
-        'select * ' .
-        'from login l ' .
-        'left outer join ' .
-        'on l.idaluno = a.idaluno ';
-
+    $sqlListagem = 'select * from login left outer join aluno on login.idaluno = aluno.idaluno ';
+        /*'from login' .
+        'left outer join aluno' .
+        'on login.idaluno = aluno.idaluno ';
+*/
 
     global $user, $password, $database, $hostname;
     
