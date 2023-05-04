@@ -20,24 +20,37 @@ revalidarLogin();
             <?php
             $registros = listarLogins();
 
-            foreach($registros as $linha)
-            {
+            foreach ($registros as $linha) {
                 echo '<tr>';
-                echo    '<td>'.$linha['dslogin'].'</td>';
-                echo    '<td>'.$linha['dssenha'].'</td>';
-                echo    '<td>'.$linha['idaluno'].'</td>';
-                echo    '<td>'.$linha['nmaluno'].'</td>';
+                echo    '<td>' . $linha['dslogin'] . '</td>';
+                echo    '<td>' . $linha['dssenha'] . '</td>';
+                echo    '<td>' . $linha['idaluno'] . '</td>';
+                echo    '<td>' . $linha['nmaluno'] . '</td>';
                 echo '</tr>';
             }
+            ?>
 
-                /*
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-            </tr>
-            */
+            <form action="form_login.php" method="post">
+                DSLOGIN: <input name="dslogin" type="text" maxlength="20">
+                DSSENHA: <input name="dssenha" type="password" maxlength="20">
+
+                <select name="idaluno">
+                    <?php
+                    $registros = listarAlunosNaoRelacionados();
+                    var_dump($registros);
+                    foreach ($registros as $linha) {
+                        echo '<option value' . $linha['idaluno'] . '>' . $linha['nmaluno'] . '</option>';
+                    }
+                    ?>
+                </select>
+                <input type="submit" name="comando" value="Cadastrar">
+            </form>
+            <?php
+            if(isset($_POST['comando']) && ($_POST['comando'] == 'Cadastrar'))
+            {
+                echo "Comando para Insert ";
+                var_dump($registros);
+            }
             ?>
         </table>
     </div>
