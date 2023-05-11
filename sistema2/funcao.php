@@ -255,13 +255,13 @@ function incluirAluno($nmaluno)
 function listarLogins()
 {
     $sqlListagem = 'select * from login left outer join aluno on login.idaluno = aluno.idaluno ';
-/*      'from login' .
+    /*      'from login' .
         'left outer join aluno' .
         'on login.idaluno = aluno.idaluno ';
 */
 
     global $user, $password, $database, $hostname;
-    
+
     $con = mysqli_connect($hostname, $user, $password) or die('Erro na conexão');
     if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
     # Seleciona o banco de dados 
@@ -281,7 +281,7 @@ function listarAlunosNaoRelacionados()
     $sqlNaoUtilizados = 'SELECT * from aluno a where a.idaluno not in (select l.idaluno from login l where l.idaluno = a.idaluno)';
 
     global $user, $password, $database, $hostname;
-    
+
     $con = mysqli_connect($hostname, $user, $password) or die('Erro na conexão');
     if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
     # Seleciona o banco de dados 
@@ -296,4 +296,70 @@ function listarAlunosNaoRelacionados()
     var_dump($rows);
 
     return $rows;
+}
+
+function incluirLogin($dslogin, $dssenha, $idaluno)
+{
+    global $user, $password, $database, $hostname;
+
+    $sqlInsert = "insert into login(dslogin, dssenha, idaluno) values ('@dslogin', '@dssenha', '@idaluno')";
+
+    $sql = str_replace("@dslogin", $dslogin, $sqlInsert);
+    $sql = str_replace("@dssenha", $dssenha, $sql);
+    $sql = str_replace("@idaluno", $idaluno, $sql);
+
+    echo $sql;
+
+    $con = mysqli_connect($hostname, $user, $password) or die('Erro na conexão');
+    if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
+    # Seleciona o banco de dados 
+    mysqli_select_db($con, $database) or die('Erro na seleção do banco');
+
+    $resultado = mysqli_query($con, $sql);
+
+    return (mysqli_affected_rows($con) == 1);
+}
+
+function alterarSenha($dslogin, $dssenha)
+{
+    global $user, $password, $database, $hostname;
+
+    $sqlUpdate = "update login
+                    set dssenha = '@dssenha'
+                    where dslogin = '@dslogin'";
+
+    $sql = str_replace("@dssenha", $dssenha, $sqlUpdate);
+    $sql = str_replace("@dslogin", $dslogin, $sql);
+
+    echo $sql;
+
+    $con = mysqli_connect($hostname, $user, $password) or die('Erro na conexão');
+    if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
+    # Seleciona o banco de dados 
+    mysqli_select_db($con, $database) or die('Erro na seleção do banco');
+
+    $resultado = mysqli_query($con, $sql);
+
+    return (mysqli_affected_rows($con) == 1);
+}
+
+function excluirAcesso($dslogin)
+{
+    global $user, $password, $database, $hostname;
+
+    $sqlUpdate = "delete from login
+                   where dslogin = '@dslogin'";
+
+    $sql = str_replace("@dslogin", $dslogin, $sqlUpdate);
+
+    echo $sql;
+
+    $con = mysqli_connect($hostname, $user, $password) or die('Erro na conexão');
+    if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
+    # Seleciona o banco de dados 
+    mysqli_select_db($con, $database) or die('Erro na seleção do banco');
+
+    $resultado = mysqli_query($con, $sql);
+
+    return (mysqli_affected_rows($con) == 1);
 }
