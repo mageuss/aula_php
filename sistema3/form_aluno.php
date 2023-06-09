@@ -1,7 +1,9 @@
 <?php
-require_once("funcao.php");
+require_once("class/class.Login.php");
+require_once("class/class.Aluno.php");
 require_once("header.php");
-revalidarLogin();
+require_once("funcao.php");
+$obj_login->revalidarLogin();
 ?>
 
 <body>
@@ -18,7 +20,7 @@ revalidarLogin();
                 </tr>
 
                 <?php
-                $rows = listarAlunos();
+                $rows = $aluno->listarAlunos();
 
 
                 foreach ($rows as $registro) {
@@ -33,7 +35,7 @@ revalidarLogin();
         <div>
             <?php
             if (isset($_GET['alterarid'])) {
-                $aluno = listarAluno($_GET['alterarid']);
+                $aluno = $aluno->listarAluno($_GET['alterarid']);
             ?>
                 <form action="form_aluno.php" method="POST">
                     <input type="hidden" name="idaluno" value="<?php echo $aluno[0]['idaluno'] ?>" />
@@ -48,23 +50,24 @@ revalidarLogin();
 
             if (isset($_POST['comando']) && $_POST['comando'] == 'Alterar') {
                 echo "Comandos para alterar o aluno ";
-                alterarAluno($_POST['idaluno'], $_POST['nmaluno']);
+                $aluno->alterarAluno($_POST['idaluno'], $_POST['nmaluno']);
                 header("location:form_aluno.php?comando=alteracaook");
             } else if (isset($_POST['comando']) && $_POST['comando'] == 'Excluir') {
                 echo "Comandos para excluir o aluno";
-                excluirAluno($_POST['idaluno']);
+                $aluno->excluirAluno($_POST['idaluno']);
                 header("location:form_aluno.php?comando=excluirok");
             } else if (isset($_POST['comando']) && $_POST['comando'] == 'Incluir') {
                 echo "Comandos para incluir o aluno";
                 if (trim($_POST['nmaluno']) != '') {
                     echo htmlspecialchars($_POST['nmaluno']);
-                    incluirAluno(htmlspecialchars($_POST['nmaluno']));
+                    $aluno->incluirAluno(htmlspecialchars($_POST['nmaluno']));
                     header("location:form_aluno.php?comando=incluirok");
                 }
             }
 
-            dumpF($_GET);
-            dumpF($_POST);
+            //dumpF($_GET);
+            //dumpF($_POST);
+            //dumpF($aluno->incluirAluno("as"));
 
             ?>
         </div>

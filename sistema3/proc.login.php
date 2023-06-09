@@ -2,20 +2,20 @@
 if (!isset($_POST["dslogin"]) || !isset($_POST["dssenha"])) {
     header("location:index.php?erro=ACESSOILEGAL");
 }
+require_once("class\class.Login.php");
+require_once("class\class.ValidacoesDeFormulario.php");
 
-require_once("funcao.php");
-
-if (validar_nome($_POST["dslogin"]) == "ok") {
+if ($validar->validarNome($_POST["dslogin"]) == "ok") {
     $login = $_POST["dslogin"];
 } else {
-    header("location:index.php?erro=" . validar_nome($_POST["dslogin"]));
+    header("location:index.php?erro=" . $validar->validarNome($_POST["dslogin"]));
 }
 
 
-if (validar_senha($_POST["dssenha"]) == "ok") {
+if ($validar->validarSenha($_POST["dssenha"]) == "ok") {
     $senha = md5($_POST["dssenha"]);
 } else {
-    header("location:index.php?erro=" . validar_senha($_POST["dssenha"]));
+    header("location:index.php?erro=" . $validar->validarSenha($_POST["dssenha"]));
 }
 /*
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -51,8 +51,8 @@ $registros = mysqli_num_rows($resultado);
 
 echo "<br/>Registros: $registros";
 */
-
-if (validarLogin($login, $senha)) {
+echo($obj_login->revalidarLogin());
+if ($obj_login->validarLogin($login, $senha)) {
     //echo "<br/> login: $login senha: $senha ip: " . $_SERVER['REMOTE_ADDR'] . " browser: " . $_SERVER['HTTP_USER_AGENT'];
     $token = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
     //echo "<br/> " . $token;

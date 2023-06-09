@@ -3,7 +3,7 @@ class TratamentoDeInput{
     
     private $caracteresIndesejaveis = array('"',"'",'<','>','--');
 
-    protected function valorInvalido($informacao){
+    protected function caracterInvalido($informacao){
         if (empty(trim($informacao))) return true;
 
         foreach ($this->caracteresIndesejaveis as $caractere) {

@@ -1,7 +1,9 @@
 <?php
+require_once("class/class.Login.php");
+require_once("class/class.Aluno.php");
 require_once("funcao.php");
 require_once("header.php");
-//revalidarLogin();
+$obj_login->revalidarLogin();
 ?>
 
 <body>
@@ -19,13 +21,11 @@ require_once("header.php");
             </tr>
             <?php
 
-            $registros  = listarLogins();
-            //dumpF($registros);
-
+            $registros = $obj_login->listarLogins();
 
             foreach ($registros as $linha) {
                 echo '<tr>';
-                echo '    <td><a href=form_login.php?alterar=' . $linha['dslogin'] . '>'  . $linha['dslogin'] . '</a> </td>';
+                echo '    <td><a href=form_login.php?alterar=' . $linha['dslogin'] . '>' . $linha['dslogin'] . '</a> </td>';
                 echo '    <td>' . $linha['dssenha'] . '</td>';
                 echo '    <td>' . $linha['idaluno'] . '</td>';
                 echo '    <td>' . $linha['nmaluno'] . '</td>';
@@ -38,7 +38,7 @@ require_once("header.php");
 
         <?php
         if (isset($_GET['alterar'])) {
-        ?>
+            ?>
             <hr>
             ***Área de manutenção
             <hr>
@@ -61,7 +61,7 @@ require_once("header.php");
             DSSENHA: <input name="dssenha" type="password" maxlength="20" />
             <select name="idaluno">
                 <?php
-                $registros = listarAlunosNaoRelacionados();
+                $registros = $aluno->listarAlunosNaoRelacionados();
 
                 foreach ($registros as $linha) {
                     echo "<option value='" . $linha['idaluno'] . "'>" . $linha['nmaluno'] . "</option>";
@@ -79,16 +79,16 @@ require_once("header.php");
             $dssenha = md5($_POST['dssenha']);
             $idaluno = $_POST['idaluno'];
 
-            if (incluirLogin($dslogin, $dssenha, $idaluno)) {
+            if ($obj_login->incluirLogin($dslogin, $dssenha, $idaluno)) {
                 header("Location:form_login.php");
             }
         } else if (isset($_POST['comando']) && ($_POST['comando'] == "ExcluirAcesso")) {
             echo "Estou na área de exclusão";
-            excluirAcesso($_POST['dslogin']);
+            $obj_login->excluirAcesso($_POST['dslogin']);
             header("Location:form_login.php");
         } else if (isset($_POST['comando']) && ($_POST['comando'] == "AlterarSenha")) {
             echo "Estou na área de alteração de senha";
-            alterarSenha($_POST['dslogin'], md5($_POST['dssenha']));
+            $obj_login->alterarSenha($_POST['dslogin'], md5($_POST['dssenha']));
             header("Location:form_login.php");
         }
 
