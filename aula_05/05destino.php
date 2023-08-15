@@ -12,7 +12,7 @@ $multipla = $_POST['multipla'];
 $checkbox = $_POST['checkbox'];
 $radio = $_POST['radio'];
 $arquivo = $_FILES['arquivo']['name'];
-// asas
+// asasasas
 echo $texto."</br>";
 echo $senha."</br>";
 echo $email."</br>";
